@@ -46,10 +46,10 @@ struct ContentView: View {
             }
             .buttonStyle(.borderedProminent)
             .alert("THE SLIDERS VALUE IS", isPresented: $alertIsVisible) {
-              Button("Done") { }
+              Button("Start New Round") { }
             } message: {
-                Text("\(roundedValue)").font(.footnote)
-                Text("You scored XXX Points\n🎉🎉🎉")
+                Text("\(roundedValue). You scored XXX Points\n🎉🎉🎉")
+            
             }
 
         }
