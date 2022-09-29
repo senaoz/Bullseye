@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var alertIsVisible: Bool = false
+    @State private var sliderValue: Double = 50.00
+    
     var body: some View {
+        let roundedValue: Int = Int(self.sliderValue)
+        
         VStack(alignment: .center) {
-            Text("Put the BullSEye as close as you can to")
+            Text("🎯🎯🎯\nPut the BullSEye as close as you can to")
                 .kerning(2)
                 .font(.footnote)
                 .bold()
@@ -20,19 +26,31 @@ struct ContentView: View {
             .padding()
             
             Text("89")
-                .font(.title)
+                .font(.largeTitle)
                 .fontWeight(.black)
             HStack {
-                Text("0").font(.title2).fontWeight(.bold)
-                Slider(value: .constant(50), in: 0...100).padding(50.0)
-                Text("100").font(.title2).fontWeight(.bold)
+                Text("0").bold()
+                Slider(value: self.$sliderValue, in: 0...100)
+                    .padding(15.0)
+                Text("100").bold()
             }
             
-            Button(action: {}) {
+            Button(action: {
+                self.alertIsVisible = true
+            }) {
                 Text("Hit me")
-                    .fontWeight(.bold)
+                    .kerning(1)
+                    .font(.title3)
+                    .textCase(.uppercase)
+                    
             }
             .buttonStyle(.borderedProminent)
+            .alert("THE SLIDERS VALUE IS", isPresented: $alertIsVisible) {
+              Button("Done") { }
+            } message: {
+                Text("\(roundedValue)").font(.footnote)
+                Text("You scored XXX Points\n🎉🎉🎉")
+            }
 
         }
     }}
@@ -41,8 +59,5 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .padding(30.0)
-        
-      
-            
     }
     }
