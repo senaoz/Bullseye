@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @State private var alertIsVisible: Bool = false
     @State private var sliderValue: Double = 50.00
+    @State private var game: Game = Game()
     
     var body: some View {
         let roundedValue: Int = Int(self.sliderValue)
@@ -25,7 +26,7 @@ struct ContentView: View {
                 .textCase(.uppercase)
             .padding()
             
-            Text("89")
+            Text(String(game.target))
                 .font(.largeTitle)
                 .fontWeight(.black)
             HStack {
@@ -45,14 +46,15 @@ struct ContentView: View {
                     
             }
             .buttonStyle(.borderedProminent)
-            .alert("THE SLIDERS VALUE IS", isPresented: $alertIsVisible) {
+            .alert("Hello there!", isPresented: $alertIsVisible) {
               Button("Start New Round") { }
             } message: {
-                Text("\(roundedValue). You scored XXX Points\n🎉🎉🎉")
+                Text("The slider's value is \(roundedValue).\nYou scored \(self.game.points(sliderValue: roundedValue)) points this round.")
             
             }
 
         }
+        
     }}
 
 struct ContentView_Previews: PreviewProvider {
