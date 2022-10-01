@@ -13,41 +13,14 @@ struct ContentView: View {
     @State private var game: Game = Game()
     
     var body: some View {
-        let roundedValue: Int = Int(self.sliderValue)
-        
         ZStack {
-            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+            BackgroundView(game: $game)
             VStack(alignment: .center) {
                 InstructionView(game: $game)
 
-                HStack {
-                    Text("0").bold()
-                    Slider(value: self.$sliderValue, in: 0...100)
-                        .padding(15.0)
-                    Text("100").bold()
-                }
+                SliderView(sliderValue: $sliderValue)
                 
-                Button(action: {
-                    self.alertIsVisible = true
-                }) {
-                    Text("Hit me")
-                        .fontWeight(.bold)
-                        .kerning(1)
-                        .font(.title3)
-                        .textCase(.uppercase)
-                        
-                }
-                .padding(20)
-                .background(Color("ButtonColor"))
-                .foregroundColor(Color.white)
-                .cornerRadius(21.0)
-                .padding()
-                .alert("Hello there!", isPresented: $alertIsVisible) {
-                  Button("Start New Round") { }
-                } message: {
-                    Text("The slider's value is \(roundedValue).\nYou scored \(self.game.points(sliderValue: roundedValue)) points this round.")
-                
-                }
+                HitMeButtonView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
 
             }
             .padding(30.0)
@@ -63,6 +36,52 @@ struct InstructionView: View {
         InsturactionText(text: "🎯🎯🎯\n Put the BullSEye as close as you can to").padding()
             
         BigNumberText(text: String(game.target))
+    }
+}
+
+struct HitMeButtonView: View {
+    
+    @Binding var alertIsVisible: Bool
+    @Binding var sliderValue: Double
+    @Binding var game: Game
+    
+    var body: some View {
+        Button(action: {
+            self.alertIsVisible = true
+        }) {
+            Text("Hit me")
+                .fontWeight(.bold)
+                .kerning(1)
+                .font(.title3)
+                .textCase(.uppercase)
+                
+        }
+        .padding(20)
+        .background(Color("ButtonColor"))
+        .foregroundColor(Color.white)
+        .cornerRadius(21.0)
+        .padding()
+        .alert("Hello there!", isPresented: $alertIsVisible) {
+          Button("Start New Round") { }
+        } message: {
+            let roundedValue = Int(sliderValue.rounded())
+            Text("The slider's value is \(roundedValue).\nYou scored \(self.game.points(sliderValue: roundedValue)) points this round.")
+        
+        }
+    }
+}
+
+struct SliderView: View{
+    
+    @Binding var sliderValue: Double
+    
+    var body: some View {
+        HStack {
+            Text("0").bold()
+            Slider(value: $sliderValue, in: 0...100)
+                .padding(15.0)
+            Text("100").bold()
+        }
     }
 }
 
