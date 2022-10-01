@@ -52,10 +52,9 @@ struct NumberView: View{
     var text: String
     
     var body: some View {
-        //Color.gray.frame(width: 56, height: 56)
-        VStack{
-            Text(title).font(.title3).bold()
-            Text(text)
+        VStack(spacing: 5){
+            LabelText(text: title)
+            RoundedRectTextView(text: text)
         }
     }
 }
