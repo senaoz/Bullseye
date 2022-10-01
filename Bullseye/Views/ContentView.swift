@@ -1,7 +1,6 @@
 //
 //  ContentView.swift
 //  Bullseye
-//
 //  Created by Sena Oz on 30.08.2022.
 //
 
@@ -19,16 +18,8 @@ struct ContentView: View {
         ZStack {
             Color("BackgroundColor").edgesIgnoringSafeArea(.all)
             VStack(alignment: .center) {
-                Text("🎯🎯🎯\n Put the BullSEye as close as you can to")
-                    .kerning(2)
-                    .font(.footnote)
-                    .bold()
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(4.0)
-                    .textCase(.uppercase)
-                    .padding()
+                InsturactionText()
                     
-                
                 Text(String(game.target))
                     .font(.largeTitle)
                     .fontWeight(.black)
