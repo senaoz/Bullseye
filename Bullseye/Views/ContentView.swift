@@ -18,11 +18,8 @@ struct ContentView: View {
         ZStack {
             Color("BackgroundColor").edgesIgnoringSafeArea(.all)
             VStack(alignment: .center) {
-                InsturactionText()
-                    
-                Text(String(game.target))
-                    .font(.largeTitle)
-                    .fontWeight(.black)
+                InstructionView(game: $game)
+
                 HStack {
                     Text("0").bold()
                     Slider(value: self.$sliderValue, in: 0...100)
@@ -57,6 +54,17 @@ struct ContentView: View {
         }
         
     }}
+
+struct InstructionView: View {
+    
+    @Binding var game: Game
+    
+    var body: some View {
+        InsturactionText(text: "🎯🎯🎯\n Put the BullSEye as close as you can to").padding()
+            
+        BigNumberText(text: String(game.target))
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
