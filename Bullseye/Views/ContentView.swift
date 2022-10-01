@@ -77,10 +77,10 @@ struct SliderView: View{
     
     var body: some View {
         HStack {
-            Text("0").bold()
+            Text("0").bold().frame(width: 35)
             Slider(value: $sliderValue, in: 0...100)
                 .padding(15.0)
-            Text("100").bold()
+            Text("100").bold().frame(width: 35)
         }
     }
 }

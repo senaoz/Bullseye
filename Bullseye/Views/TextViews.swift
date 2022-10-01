@@ -28,10 +28,21 @@ struct BigNumberText: View {
     }
 }
 
+struct LabelText: View {
+    var text: String
+    var body: some View {
+        Text(text.uppercased())
+            .kerning(1.5)
+            .font(.caption)
+            .bold()
+    }
+}
+
+
 struct TextViews_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            InsturactionText(text: "String")
+            LabelText(text: "String")
             BigNumberText(text: "999")
         }
     }
