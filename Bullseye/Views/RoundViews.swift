@@ -40,7 +40,7 @@ struct RoundedRectTextView: View {
           .font(.title3)
           .bold()
           .padding()
-          .frame(width: 68, height: 56)
+          .frame(width: 70, height: 56)
           .overlay(RoundedRectangle(cornerRadius: 21).strokeBorder(Color("StrokeColor"), lineWidth: 2))
   }
 }
@@ -51,7 +51,7 @@ struct RoundViews_Previews: PreviewProvider {
         VStack{
             RoundedImageViewStroked(systemName: "arrow.counterclockwise")
             FilledImageViewStroked(systemName: "list.dash")
-            RoundedRectTextView(text: "54")
+            RoundedRectTextView(text: "558")
         }
     }
 }
