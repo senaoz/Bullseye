@@ -89,11 +89,11 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
         ContentView()
-          .previewLayout(.fixed(width: 568, height: 320))
+          .previewLayout(.fixed(width: 568, height: 350))
         ContentView()
           .preferredColorScheme(.dark)
         ContentView()
-          .previewLayout(.fixed(width: 568, height: 320))
+          .previewLayout(.fixed(width: 568, height: 350))
           .preferredColorScheme(.dark)
            
     }
