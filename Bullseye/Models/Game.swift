@@ -27,6 +27,12 @@ struct Game {
       return 100 - difference + bonus
     }
     
+    mutating func restart(){
+        target = Int.random(in: 1...100)
+        score = 0
+        round = 1
+    }
+    
     mutating func startNewRound(points: Int) { //mutating??
       score = score + points
       round = round + 1

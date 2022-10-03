@@ -16,9 +16,11 @@ struct BackgroundView: View {
             Spacer()
             BottomView(game: $game)
         }
-        .padding(25)
-        .background(Color("BackgroundColor"))
-        .edgesIgnoringSafeArea(.all)
+        .padding()
+        .background(
+          RingsView()
+        )
+        
     }
 }
 
@@ -27,7 +29,11 @@ struct TopView: View {
     
     var body: some View {
         HStack{
-            RoundedImageViewStroked(systemName: "arrow.counterclockwise")
+            Button() {
+                game.restart()
+            } label: {
+                RoundedImageViewStroked(systemName: "arrow.counterclockwise")
+            }
             Spacer()
             FilledImageViewStroked(systemName: "list.dash")
         }
@@ -47,6 +53,25 @@ struct BottomView: View {
     }
 }
 
+
+struct RingsView: View {
+  var body: some View {
+    ZStack {
+      Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+        
+        ForEach(1..<6) { ring in
+          let size = CGFloat(ring * 100)
+          Circle()
+            .stroke(lineWidth: 20)
+            .fill(RadialGradient(gradient: Gradient(colors: [Color("SecondColor").opacity(0.3 * 0.8), Color("SecondColor").opacity(0)]), center: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, startRadius: 100, endRadius: 300))
+            .frame(width: size, height: size)
+        }
+
+    }
+  }
+}
+
+
 struct NumberView: View{
     var title: String
     var text: String
@@ -63,5 +88,6 @@ struct BackgroundView_Previews: PreviewProvider {
     static var previews: some View {
         BackgroundView(game: .constant(Game()))
             .previewInterfaceOrientation(.portrait)
+       
     }
 }

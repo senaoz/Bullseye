@@ -38,12 +38,39 @@ struct LabelText: View {
     }
 }
 
+struct AlertButtonText: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.body)
+            .fontWeight(.bold)
+            .multilineTextAlignment(.center)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .foregroundColor(Color.white)
+            .background(Color.accentColor)
+            .cornerRadius(12)
+    }
+}
+
+struct AlertCaptionText: View {
+    var text: String
+    var body: some View {
+        Text(text)
+            .font(.subheadline)
+            .lineSpacing(12)
+            .multilineTextAlignment(.center)
+    }
+}
+
 
 struct TextViews_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
-            LabelText(text: "String")
-            BigNumberText(text: "999")
-        }
+        VStack(spacing: 15) {
+            LabelText(text: "THE SLIDERS VALUE IS")
+            BigNumberText(text: "99")
+            AlertCaptionText(text: "You scored 200 Points\n🎉🎉🎉")
+            AlertButtonText(text: "Start New Round")
+        }.padding(50)
     }
 }

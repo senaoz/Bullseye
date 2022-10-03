@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var alertIsVisible: Bool = false
+    @State private var alertIsVisible: Bool = true
     @State private var sliderValue: Double = 50.00
     @State private var game: Game = Game()
     
@@ -17,9 +17,12 @@ struct ContentView: View {
             BackgroundView(game: $game)
             VStack(alignment: .center) {
                 InstructionView(game: $game)
-
-                SliderView(sliderValue: $sliderValue)
-                
+                if alertIsVisible {
+                  PointsView()
+                } else {
+                    SliderView(sliderValue: $sliderValue)
+                    HitMeButtonView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
+                }
                 HitMeButtonView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
 
             }
@@ -33,7 +36,7 @@ struct InstructionView: View {
     @Binding var game: Game
     
     var body: some View {
-        InsturactionText(text: "🎯🎯🎯\n Put the BullSEye as close as you can to").padding()
+        InsturactionText(text: "🎯🎯🎯\n Put the BullSEye as close as you can to").padding(.bottom)
             
         BigNumberText(text: String(game.target))
     }
@@ -61,16 +64,9 @@ struct HitMeButtonView: View {
         .foregroundColor(Color.white)
         .cornerRadius(21.0)
         .padding()
-        .alert("Hello there!", isPresented: $alertIsVisible) {
-          Button("Start New Round") {
-              game.startNewRound(points: game.points(sliderValue: Int(sliderValue)))
-              
-          }
-        } message: {
-            let roundedValue = Int(sliderValue.rounded())
-            Text("The slider's value is \(roundedValue).\nYou scored \(self.game.points(sliderValue: roundedValue)) points this round.")
+
         
-        }
+        
     }
 }
 
@@ -82,7 +78,7 @@ struct SliderView: View{
         HStack {
             Text("0").bold().frame(width: 35)
             Slider(value: $sliderValue, in: 0...100)
-                .padding(15.0)
+                .padding(.horizontal, 15.0)
             Text("100").bold().frame(width: 35)
         }
     }
