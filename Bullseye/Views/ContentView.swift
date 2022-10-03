@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var alertIsVisible: Bool = true
+    @State private var alertIsVisible: Bool = false
     @State private var sliderValue: Double = 50.00
     @State private var game: Game = Game()
     
@@ -16,17 +16,18 @@ struct ContentView: View {
         ZStack {
             BackgroundView(game: $game)
             VStack(alignment: .center) {
-                InstructionView(game: $game)
+                InstructionView(game: $game, alertIsVisible: $alertIsVisible)
                 if alertIsVisible {
-                  PointsView()
+                    PointsView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
                 } else {
-                    SliderView(sliderValue: $sliderValue)
                     HitMeButtonView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
                 }
-                HitMeButtonView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
-
             }
-            .padding(30.0)
+            if !alertIsVisible {
+                SliderView(sliderValue: $sliderValue).padding(.horizontal, 30.0)
+                
+            }
+            
         }
         
     }}
@@ -34,11 +35,12 @@ struct ContentView: View {
 struct InstructionView: View {
     
     @Binding var game: Game
+    @Binding var alertIsVisible: Bool
     
     var body: some View {
         InsturactionText(text: "🎯🎯🎯\n Put the BullSEye as close as you can to").padding(.bottom)
             
-        BigNumberText(text: String(game.target))
+        BigNumberText(text: String(game.target)).padding(.bottom, alertIsVisible ? 0 : 90)
     }
 }
 

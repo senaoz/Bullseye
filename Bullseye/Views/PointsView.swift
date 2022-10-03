@@ -8,16 +8,21 @@
 import SwiftUI
 
 struct PointsView: View {
-    //var sliderValue: Double
-    //var game: Game
+    @Binding var alertIsVisible: Bool
+    @Binding var sliderValue: Double
+    @Binding var game: Game
     
     var body: some View {
+        let roundedValue = Int(sliderValue.rounded())
+        let points = game.points(sliderValue: roundedValue)
+        
         VStack(spacing: 15) {
             LabelText(text: "THE SLIDERS VALUE IS")
-            BigNumberText(text: "99")
-            AlertCaptionText(text: "You scored 200 Points\n🎉🎉🎉")
+            BigNumberText(text: String(roundedValue))
+            AlertCaptionText(text: "You scored \(points) Points\n🎉🎉🎉")
             Button() {
-               
+                alertIsVisible = false
+                game.startNewRound(points: points)
             } label: {
                 AlertButtonText(text: "Start New Round")
             }
@@ -33,14 +38,8 @@ struct PointsView: View {
 
 struct PointsView_Previews: PreviewProvider {
     static var previews: some View {
-        PointsView()
-        PointsView()
-          .previewLayout(.fixed(width: 568, height: 320))
-        PointsView()
-          .preferredColorScheme(.dark)
-        PointsView()
-          .previewLayout(.fixed(width: 568, height: 320))
-          .preferredColorScheme(.dark)
+
+       Text("A")
 
     }
 }
