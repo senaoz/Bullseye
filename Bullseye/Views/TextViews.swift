@@ -63,6 +63,30 @@ struct AlertCaptionText: View {
     }
 }
 
+struct Title: View {
+    var text: String
+    
+    var body: some View {
+        Text(text)
+            .kerning(-0.2)
+            .font(.title3)
+            .bold()
+    }
+}
+
+
+
+struct BigBoldText: View {
+  let text: String
+
+  var body: some View {
+    Text(text.uppercased())
+      .kerning(2.0)
+      .font(.title)
+      .fontWeight(.black)
+  }
+}
+
 
 struct TextViews_Previews: PreviewProvider {
     static var previews: some View {
