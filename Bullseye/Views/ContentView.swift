@@ -18,13 +18,14 @@ struct ContentView: View {
             VStack(alignment: .center) {
                 InstructionView(game: $game, alertIsVisible: $alertIsVisible)
                 if alertIsVisible {
-                    PointsView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
+                    PointsView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game).transition(.scale)
                 } else {
-                    HitMeButtonView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game)
+                    HitMeButtonView(alertIsVisible: $alertIsVisible, sliderValue: $sliderValue, game: $game).transition(.scale)
                 }
             }
             if !alertIsVisible {
-                SliderView(sliderValue: $sliderValue).padding(.horizontal, 30.0)
+                SliderView(sliderValue: $sliderValue)
+                    .transition(.scale)
                 
             }
             
@@ -38,7 +39,7 @@ struct InstructionView: View {
     @Binding var alertIsVisible: Bool
     
     var body: some View {
-        InsturactionText(text: "🎯🎯🎯\n Put the BullSEye as close as you can to").padding(.bottom)
+        InsturactionText(text: "🎯🎯🎯\n Put the BullsEye as close as you can to").padding(.bottom)
             
         BigNumberText(text: String(game.target)).padding(.bottom, alertIsVisible ? 0 : 90)
     }
@@ -52,9 +53,11 @@ struct HitMeButtonView: View {
     
     var body: some View {
         Button(action: {
-            self.alertIsVisible = true
+            withAnimation {
+                self.alertIsVisible = true
+            }
         }) {
-            Text("Hit me")
+            Text("HIT ME")
                 .fontWeight(.bold)
                 .kerning(1)
                 .font(.title3)
@@ -80,9 +83,8 @@ struct SliderView: View{
         HStack {
             Text("0").bold().frame(width: 35)
             Slider(value: $sliderValue, in: 0...100)
-                .padding(.horizontal, 15.0)
             Text("100").bold().frame(width: 35)
-        }
+        }.padding()
     }
 }
 

@@ -13,9 +13,9 @@ struct RoundedImageViewStroked: View {
   var body: some View {
     Image(systemName: systemName)
       .font(.title)
-      .frame(width: 56.0, height: 56.0)
+      .frame(width: Constants.General.roundedViewLength, height:  Constants.General.roundedViewHeight)
       .foregroundColor(Color("TextColor"))
-      .overlay(Circle().strokeBorder(Color("StrokeColor"), lineWidth: 2))
+      .overlay(Circle().strokeBorder(Color("StrokeColor"), lineWidth: Constants.General.strokeWidth))
   }
 }
 
@@ -36,15 +36,23 @@ struct FilledImageViewStroked: View {
 struct RoundedRectTextView: View {
     var text: String
   var body: some View {
-      Text(text)
-          .kerning(-0.2)
-          .font(.title3)
-          .bold()
+      Title(text: text)
           .padding()
-          .frame(width: 70, height: 56)
-          .overlay(RoundedRectangle(cornerRadius: 21).strokeBorder(Color("StrokeColor"), lineWidth: 2))
+          .frame(width:  Constants.General.roundedViewWidth, height: Constants.General.roundedViewHeight)
+          .overlay(RoundedRectangle(cornerRadius: 21).strokeBorder(Color("StrokeColor"), lineWidth: Constants.General.strokeWidth))
   }
 }
+
+struct CircleLeaderboardTextView: View {
+    var text: String
+  var body: some View {
+      Title(text: text)
+          .padding()
+          .frame(width:  Constants.General.roundedViewLength, height: Constants.General.roundedViewHeight)
+          .overlay(RoundedRectangle(cornerRadius: .infinity).strokeBorder(Color("SecondColor"), lineWidth: Constants.General.strokeWidth))
+  }
+}
+
 
 
 struct RoundViews_Previews: PreviewProvider {
@@ -53,6 +61,7 @@ struct RoundViews_Previews: PreviewProvider {
             RoundedImageViewStroked(systemName: "arrow.counterclockwise")
             FilledImageViewStroked(systemName: "list.dash")
             RoundedRectTextView(text: "558")
+            CircleLeaderboardTextView(text: "1")
         }
     }
 }
