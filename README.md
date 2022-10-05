@@ -1,7 +1,7 @@
 # Bullseye Game
 The Bullseye game I developed for my SwiftUI learning process. It uses SwiftUI and is written 100% in Swift.
 
-### TO DO 
+### TO DO 🚀
 
  - [x] Add an instructions label
  - [x] Add a target label
